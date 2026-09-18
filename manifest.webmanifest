@@ -1,10 +1,10 @@
 {
-  "id": "./?pwa=smart-fighting-v3",
+  "id": "./?pwa=smart-fighting-v6",
   "name": "Smart Fighting — Enciclopedia Tecnica",
   "short_name": "Smart Fighting",
   "description": "Enciclopedia tecnica Smart Fighting di sport da combattimento e arti marziali.",
   "lang": "it-IT",
-  "start_url": "./?pwa=smart-fighting-v3",
+  "start_url": "./?pwa=smart-fighting-v6",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -13,22 +13,10 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "./icon-app-v5.svg",
+      "src": "./icon-app-v6.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
-    },
-    {
-      "src": "./icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
     }
   ]
 }
