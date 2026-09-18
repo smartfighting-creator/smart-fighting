@@ -7,9 +7,9 @@
 <meta name="color-scheme" content="dark">
 <title>Smart Fighting — Enciclopedia Tecnica</title>
 <meta name="description" content="Enciclopedia tecnica Smart Fighting: versione interattiva HTML e manuale PDF.">
-<link rel="manifest" href="./manifest.webmanifest?v=2">
-<link rel="icon" href="./icon.svg?v=2" type="image/svg+xml">
-<link rel="apple-touch-icon" href="./icon.svg?v=2">
+<link rel="manifest" href="./manifest.webmanifest?v=3">
+<link rel="icon" href="./icon-192.png?v=3" type="image/png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Smart Fighting">
@@ -35,12 +35,12 @@ h1{text-align:center;margin:0;font-size:clamp(30px,8vw,48px);line-height:1.03;le
 </head>
 <body>
 <main class="app">
-<section class="brandbox"><img class="brand-img" src="./brand-smart-fighting.jpg?v=1" alt="Smart Fighting & Training" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand" style="display:none"><span class="smart">SMART</span><span class="fighting">FIGHTING</span></div><div class="brandline">Fighting & Training</div><div class="badge"><i></i>PWA Smart Fighting</div></section>
+<section class="brandbox"><img class="brand-img" src="./brand-smart-fighting.jpg?v=3" alt="Smart Fighting & Training" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand" style="display:none"><span class="smart">SMART</span><span class="fighting">FIGHTING</span></div><div class="brandline">Fighting & Training</div><div class="badge"><i></i>PWA Smart Fighting</div></section>
 <div class="kicker">Sport da combattimento e arti marziali</div>
 <h1>Enciclopedia Tecnica</h1>
 <p class="sub">Una sola app, due modalità: enciclopedia interattiva HTML per ricerca e navigazione rapida, oppure manuale PDF completo.</p>
-<a class="card" href="./enciclopedia.html?v=14.7"><div class="ico">⚡</div><div><b>Enciclopedia interattiva</b><small>Ricerca, macroaree, discipline, tecniche e navigazione HTML.</small></div><div class="arr">›</div></a>
-<a class="card" href="./enciclopedia.pdf?v=14.7" target="_blank" rel="noopener"><div class="ico">📖</div><div><b>Enciclopedia tecnica PDF</b><small>Manuale completo da aprire nel lettore PDF del dispositivo.</small></div><div class="arr">›</div></a>
+<a class="card" href="./enciclopedia.html?v=14.7.1"><div class="ico">⚡</div><div><b>Enciclopedia interattiva</b><small>Ricerca, macroaree, discipline, tecniche e navigazione HTML.</small></div><div class="arr">›</div></a>
+<a class="card" href="./enciclopedia.pdf?v=14.7.1" target="_blank" rel="noopener"><div class="ico">📖</div><div><b>Enciclopedia tecnica PDF</b><small>Manuale completo da aprire nel lettore PDF del dispositivo.</small></div><div class="arr">›</div></a>
 <div id="contentNotice" class="notice">I contenuti dell'enciclopedia non sono ancora stati caricati in questo repository.</div>
 <section class="install"><h2>Installa Smart Fighting</h2><p id="installText">Puoi aggiungere questa PWA alla schermata Home e usarla come un'app su Android, iPhone e iPad.</p><div class="actions"><button id="installBtn" class="btn hidden">Installa app</button><button id="iosHelp" class="btn secondary hidden">Installazione iPhone</button><button id="reloadBtn" class="btn secondary">Aggiorna contenuti</button></div></section>
 <div class="footer">SMART FIGHTING & TRAINING · Enciclopedia tecnica</div>
@@ -54,5 +54,5 @@ iosHelp.addEventListener('click',()=>alert('iPhone/iPad: 1) Apri in Safari. 2) T
 document.getElementById('reloadBtn').addEventListener('click',async()=>{if('serviceWorker'in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.update()))}location.reload()});
 if(standalone)installText.textContent='Smart Fighting è già aperta in modalità app.';
 async function checkContent(){try{const[h,p]=await Promise.all([fetch('./enciclopedia.html',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia.pdf',{method:'HEAD',cache:'no-store'})]);if(!h.ok||!p.ok)notice.style.display='block'}catch(_){notice.style.display='block'}}checkContent();
-if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=2').catch(()=>{}));
+if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=3').catch(()=>{}));
 </script></body></html>
