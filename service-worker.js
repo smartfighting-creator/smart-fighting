@@ -1,5 +1,6 @@
 const CACHE='smart-fighting-pwa-v6-20260918';
 const SHELL=[
+  './icon-app-v6.svg',
   './',
   './index.html',
   './manifest.webmanifest',
