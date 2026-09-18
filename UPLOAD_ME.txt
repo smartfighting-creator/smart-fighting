@@ -1,0 +1,2 @@
+Carica tutti questi file nella root del repository smartfighting-creator/smart-fighting.
+Non cancellare gli altri file già presenti.
