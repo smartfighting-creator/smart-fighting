@@ -1,4 +1,4 @@
-const CACHE='smart-fighting-pwa-v3-20260918';
+const CACHE='smart-fighting-pwa-v4-20260918';
 const SHELL=[
   './',
   './index.html',
