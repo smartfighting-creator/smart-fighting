@@ -7,8 +7,8 @@
 <meta name="color-scheme" content="dark">
 <title>Smart Fighting — Enciclopedia Tecnica</title>
 <meta name="description" content="Enciclopedia tecnica Smart Fighting: versione interattiva HTML e manuale PDF.">
-<link rel="manifest" href="./manifest.webmanifest?v=6">
-<link rel="icon" href="./icon-app-v6.svg?v=6" type="image/svg+xml">
+<link rel="manifest" href="./manifest.webmanifest?v=7">
+<link rel="icon" href="./icon-app-v7.svg?v=7" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./icon-512.png?v=5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -54,5 +54,5 @@ if(isIOS&&!standalone){iosHelp.classList.remove('hidden');installText.textConten
 iosHelp.addEventListener('click',()=>alert('iPhone/iPad: 1) Apri in Safari. 2) Tocca Condividi. 3) Scegli “Aggiungi alla schermata Home”. 4) Conferma “Aggiungi”.'));
 if(standalone){const panel=document.querySelector('.install');if(panel)panel.remove();}
 async function checkContent(){try{const[h,p,m]=await Promise.all([fetch('./enciclopedia.html',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia.pdf',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia-mobile.pdf',{method:'HEAD',cache:'no-store'})]);if(!h.ok||!p.ok||!m.ok)notice.style.display='block'}catch(_){notice.style.display='block'}}checkContent();
-if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=6').catch(()=>{}));
+if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=7').catch(()=>{}));
 </script></body></html>
