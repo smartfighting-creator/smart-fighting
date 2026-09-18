@@ -7,9 +7,9 @@
 <meta name="color-scheme" content="dark">
 <title>Smart Fighting — Enciclopedia Tecnica</title>
 <meta name="description" content="Enciclopedia tecnica Smart Fighting: versione interattiva HTML e manuale PDF.">
-<link rel="manifest" href="./manifest.webmanifest?v=3">
-<link rel="icon" href="./icon-192.png?v=3" type="image/png">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png?v=3">
+<link rel="manifest" href="./manifest.webmanifest?v=5">
+<link rel="icon" href="./icon-app-v5.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon-512.png?v=5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Smart Fighting">
@@ -42,7 +42,7 @@ h1{text-align:center;margin:0;font-size:clamp(30px,8vw,48px);line-height:1.03;le
 <a class="card" href="./enciclopedia.html?v=14.7.1"><div class="ico">⚡</div><div><b>Enciclopedia interattiva</b><small>Ricerca, macroaree, discipline, tecniche e navigazione HTML.</small></div><div class="arr">›</div></a>
 <a class="card" href="./enciclopedia.pdf?v=14.7.1" target="_blank" rel="noopener"><div class="ico">🖥️</div><div><b>PDF PC / Tablet</b><small>Manuale completo nella versione standard per schermi grandi e tablet.</small></div><div class="arr">›</div></a>\n<a class="card" href="./enciclopedia-mobile.pdf?v=14.8" target="_blank" rel="noopener"><div class="ico">📱</div><div><b>PDF Mobile</b><small>Versione ottimizzata per smartphone, con menu, sottomenu e collegamenti interni.</small></div><div class="arr">›</div></a>
 <div id="contentNotice" class="notice">I contenuti dell'enciclopedia non sono ancora stati caricati in questo repository.</div>
-<section class="install"><h2>Installa Smart Fighting</h2><p id="installText">Puoi aggiungere questa PWA alla schermata Home e usarla come un'app su Android, iPhone e iPad.</p><div class="actions"><button id="installBtn" class="btn hidden">Installa app</button><button id="iosHelp" class="btn secondary hidden">Installazione iPhone</button><button id="reloadBtn" class="btn secondary">Aggiorna contenuti</button></div></section>
+<section class="install"><h2>Installa Smart Fighting</h2><p id="installText">Puoi aggiungere questa PWA alla schermata Home e usarla come un'app su Android, iPhone e iPad.</p><div class="actions"><button id="installBtn" class="btn hidden">Installa app</button><button id="iosHelp" class="btn secondary hidden">Installazione iPhone</button></div></section>
 <div class="footer">SMART FIGHTING & TRAINING · Enciclopedia tecnica</div>
 </main>
 <script>
@@ -51,8 +51,7 @@ addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;i
 installBtn.addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;installBtn.classList.add('hidden')});
 if(isIOS&&!standalone){iosHelp.classList.remove('hidden');installText.textContent='Su iPhone/iPad apri questa pagina in Safari, tocca Condividi e scegli “Aggiungi alla schermata Home”.'}
 iosHelp.addEventListener('click',()=>alert('iPhone/iPad: 1) Apri in Safari. 2) Tocca Condividi. 3) Scegli “Aggiungi alla schermata Home”. 4) Conferma “Aggiungi”.'));
-document.getElementById('reloadBtn').addEventListener('click',async()=>{if('serviceWorker'in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.update()))}location.reload()});
 if(standalone)installText.textContent='Smart Fighting è già aperta in modalità app.';
 async function checkContent(){try{const[h,p,m]=await Promise.all([fetch('./enciclopedia.html',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia.pdf',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia-mobile.pdf',{method:'HEAD',cache:'no-store'})]);if(!h.ok||!p.ok||!m.ok)notice.style.display='block'}catch(_){notice.style.display='block'}}checkContent();
-if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=4').catch(()=>{}));
+if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=5').catch(()=>{}));
 </script></body></html>
