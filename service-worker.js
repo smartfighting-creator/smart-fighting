@@ -1,8 +1,9 @@
-const CACHE='smart-fighting-pwa-v4-20260918';
+const CACHE='smart-fighting-pwa-v5-20260918';
 const SHELL=[
   './',
   './index.html',
   './manifest.webmanifest',
+  './icon-app-v5.svg',
   './icon-192.png',
   './icon-512.png',
   './icon-maskable-512.png',
