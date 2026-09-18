@@ -7,8 +7,8 @@
 <meta name="color-scheme" content="dark">
 <title>Smart Fighting — Enciclopedia Tecnica</title>
 <meta name="description" content="Enciclopedia tecnica Smart Fighting: versione interattiva HTML e manuale PDF.">
-<link rel="manifest" href="./manifest.webmanifest?v=5">
-<link rel="icon" href="./icon-app-v5.svg" type="image/svg+xml">
+<link rel="manifest" href="./manifest.webmanifest?v=6">
+<link rel="icon" href="./icon-app-v6.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./icon-512.png?v=5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,7 +30,7 @@ h1{text-align:center;margin:0;font-size:clamp(30px,8vw,48px);line-height:1.03;le
 .card:active{transform:scale(.987)}.ico{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:#211013;border:1px solid #5d2328;font-size:27px;flex:0 0 auto}.card b{display:block;font-size:18px}.card small{display:block;color:var(--muted);font-size:12px;margin-top:4px;line-height:1.4}.arr{margin-left:auto;color:var(--red2);font-size:27px}
 .notice{display:none;margin:14px 0;background:#181213;border:1px solid #54262a;border-radius:16px;padding:12px 14px;color:#d6b8ba;font-size:12px;line-height:1.45}
 .install{margin-top:22px;background:#111315;border:1px solid var(--line);border-radius:20px;padding:15px}.install h2{font-size:16px;margin:0 0 5px}.install p{font-size:12px;color:var(--muted);line-height:1.45;margin:0}.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.btn{appearance:none;border:0;border-radius:13px;padding:11px 14px;font-weight:900;background:var(--red);color:white}.btn.secondary{background:#1c2023;color:var(--text);border:1px solid var(--line)}
-.footer{text-align:center;margin-top:22px;color:#6d7378;font-size:10px;line-height:1.5}.hidden{display:none!important}
+.footer{text-align:center;margin-top:22px;color:#6d7378;font-size:10px;line-height:1.5}.hidden{display:none!important}@media(display-mode:standalone){.install{display:none!important}}
 </style>
 </head>
 <body>
@@ -40,7 +40,8 @@ h1{text-align:center;margin:0;font-size:clamp(30px,8vw,48px);line-height:1.03;le
 <h1>Enciclopedia Tecnica</h1>
 <p class="sub">Una sola app, tre modalità: enciclopedia interattiva HTML, PDF PC/Tablet e PDF Mobile ottimizzato per smartphone.</p>
 <a class="card" href="./enciclopedia.html?v=14.7.1"><div class="ico">⚡</div><div><b>Enciclopedia interattiva</b><small>Ricerca, macroaree, discipline, tecniche e navigazione HTML.</small></div><div class="arr">›</div></a>
-<a class="card" href="./enciclopedia.pdf?v=14.7.1" target="_blank" rel="noopener"><div class="ico">🖥️</div><div><b>PDF PC / Tablet</b><small>Manuale completo nella versione standard per schermi grandi e tablet.</small></div><div class="arr">›</div></a>\n<a class="card" href="./enciclopedia-mobile.pdf?v=14.8" target="_blank" rel="noopener"><div class="ico">📱</div><div><b>PDF Mobile</b><small>Versione ottimizzata per smartphone, con menu, sottomenu e collegamenti interni.</small></div><div class="arr">›</div></a>
+<a class="card" href="./enciclopedia.pdf?v=14.7.1" target="_blank" rel="noopener"><div class="ico">🖥️</div><div><b>PDF PC / Tablet</b><small>Manuale completo nella versione standard per schermi grandi e tablet.</small></div><div class="arr">›</div></a>
+<a class="card" href="./enciclopedia-mobile.pdf?v=14.8" target="_blank" rel="noopener"><div class="ico">📱</div><div><b>PDF Mobile</b><small>Versione ottimizzata per smartphone, con menu, sottomenu e collegamenti interni.</small></div><div class="arr">›</div></a>
 <div id="contentNotice" class="notice">I contenuti dell'enciclopedia non sono ancora stati caricati in questo repository.</div>
 <section class="install"><h2>Installa Smart Fighting</h2><p id="installText">Puoi aggiungere questa PWA alla schermata Home e usarla come un'app su Android, iPhone e iPad.</p><div class="actions"><button id="installBtn" class="btn hidden">Installa app</button><button id="iosHelp" class="btn secondary hidden">Installazione iPhone</button></div></section>
 <div class="footer">SMART FIGHTING & TRAINING · Enciclopedia tecnica</div>
@@ -51,7 +52,7 @@ addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;i
 installBtn.addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;installBtn.classList.add('hidden')});
 if(isIOS&&!standalone){iosHelp.classList.remove('hidden');installText.textContent='Su iPhone/iPad apri questa pagina in Safari, tocca Condividi e scegli “Aggiungi alla schermata Home”.'}
 iosHelp.addEventListener('click',()=>alert('iPhone/iPad: 1) Apri in Safari. 2) Tocca Condividi. 3) Scegli “Aggiungi alla schermata Home”. 4) Conferma “Aggiungi”.'));
-if(standalone)installText.textContent='Smart Fighting è già aperta in modalità app.';
+if(standalone){const panel=document.querySelector('.install');if(panel)panel.remove();}
 async function checkContent(){try{const[h,p,m]=await Promise.all([fetch('./enciclopedia.html',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia.pdf',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia-mobile.pdf',{method:'HEAD',cache:'no-store'})]);if(!h.ok||!p.ok||!m.ok)notice.style.display='block'}catch(_){notice.style.display='block'}}checkContent();
-if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=5').catch(()=>{}));
+if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=6').catch(()=>{}));
 </script></body></html>
