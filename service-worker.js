@@ -1,4 +1,4 @@
-const CACHE='smart-fighting-pwa-v12-20260920';
+const CACHE='smart-fighting-pwa-v13-20260920';
 const SHELL=[
   './icon-app-v9.svg',
   './',
