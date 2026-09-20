@@ -30,10 +30,11 @@ h1{text-align:center;margin:0;font-size:clamp(30px,8vw,48px);line-height:1.03;le
 .card:active{transform:scale(.987)}.ico{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:#211013;border:1px solid #5d2328;font-size:27px;flex:0 0 auto}.card b{display:block;font-size:18px}.card small{display:block;color:var(--muted);font-size:12px;margin-top:4px;line-height:1.4}.arr{margin-left:auto;color:var(--red2);font-size:27px}
 .notice{display:none;margin:14px 0;background:#181213;border:1px solid #54262a;border-radius:16px;padding:12px 14px;color:#d6b8ba;font-size:12px;line-height:1.45}
 .install{margin-top:22px;background:#111315;border:1px solid var(--line);border-radius:20px;padding:15px}.install h2{font-size:16px;margin:0 0 5px}.install p{font-size:12px;color:var(--muted);line-height:1.45;margin:0}.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.btn{appearance:none;border:0;border-radius:13px;padding:11px 14px;font-weight:900;background:var(--red);color:white}.btn.secondary{background:#1c2023;color:var(--text);border:1px solid var(--line)}
-.footer{text-align:center;margin-top:22px;color:#6d7378;font-size:10px;line-height:1.5}.hidden{display:none!important}@media(display-mode:standalone){.install{display:none!important}}
+.footer{text-align:center;margin-top:22px;color:#6d7378;font-size:10px;line-height:1.5}.hidden{display:none!important}.intro-splash{position:fixed;inset:0;z-index:9999;background:#000;display:none;align-items:center;justify-content:center;opacity:1;transition:opacity .45s ease}.intro-splash.show{display:flex}.intro-splash.fade{opacity:0;pointer-events:none}.intro-splash video{width:100%;height:100%;object-fit:contain;background:#000}.intro-skip{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:2;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.46);color:#fff;border-radius:999px;padding:8px 12px;font:700 12px/1 Arial,sans-serif;backdrop-filter:blur(8px)}@media(display-mode:standalone){.install{display:none!important}}
 </style>
 </head>
 <body>
+<div id="introSplash" class="intro-splash" aria-hidden="true"><video id="introVideo" playsinline muted preload="auto"></video><button id="introSkip" class="intro-skip" type="button">Salta</button></div>
 <main class="app">
 <section class="brandbox"><img class="brand-img" src="./brand-smart-fighting.jpg?v=3" alt="Smart Fighting & Training" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand" style="display:none"><span class="smart">SMART</span><span class="fighting">FIGHTING</span></div><div class="brandline">Fighting & Training</div><div class="badge"><i></i>PWA Smart Fighting</div></section>
 <div class="kicker">Sport da combattimento e arti marziali</div>
@@ -53,6 +54,24 @@ installBtn.addEventListener('click',async()=>{if(!deferredPrompt)return;deferred
 if(isIOS&&!standalone){iosHelp.classList.remove('hidden');installText.textContent='Su iPhone/iPad apri questa pagina in Safari, tocca Condividi e scegli “Aggiungi alla schermata Home”.'}
 iosHelp.addEventListener('click',()=>alert('iPhone/iPad: 1) Apri in Safari. 2) Tocca Condividi. 3) Scegli “Aggiungi alla schermata Home”. 4) Conferma “Aggiungi”.'));
 if(standalone){const panel=document.querySelector('.install');if(panel)panel.remove();}
+const introSplash=document.getElementById('introSplash'),introVideo=document.getElementById('introVideo'),introSkip=document.getElementById('introSkip');
+function closeIntro(){if(!introSplash||!introSplash.classList.contains('show'))return;introSplash.classList.add('fade');setTimeout(()=>{introVideo.pause();introVideo.removeAttribute('src');introVideo.load();introSplash.classList.remove('show','fade');introSplash.setAttribute('aria-hidden','true')},480)}
+async function maybePlayIntro(){
+  if(!standalone||sessionStorage.getItem('sfIntroPlayed')==='1')return;
+  sessionStorage.setItem('sfIntroPlayed','1');
+  try{
+    const r=await fetch('./intro-smart-fighting.mp4',{method:'HEAD',cache:'no-store'});
+    if(!r.ok)return;
+    introSplash.classList.add('show');introSplash.setAttribute('aria-hidden','false');
+    introVideo.src='./intro-smart-fighting.mp4?v=1';
+    introVideo.addEventListener('ended',closeIntro,{once:true});
+    introVideo.addEventListener('error',closeIntro,{once:true});
+    introSkip.addEventListener('click',closeIntro,{once:true});
+    const p=introVideo.play();if(p&&p.catch)p.catch(closeIntro);
+    setTimeout(closeIntro,7000);
+  }catch(_){}
+}
+maybePlayIntro();
 async function checkContent(){try{const[h,p,m]=await Promise.all([fetch('./enciclopedia.html',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia.pdf',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia-mobile.pdf',{method:'HEAD',cache:'no-store'})]);if(!h.ok||!p.ok||!m.ok)notice.style.display='block'}catch(_){notice.style.display='block'}}checkContent();
-if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=9').catch(()=>{}));
+if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=10').catch(()=>{}));
 </script></body></html>
