@@ -34,7 +34,7 @@ h1{text-align:center;margin:0;font-size:clamp(30px,8vw,48px);line-height:1.03;le
 </style>
 </head>
 <body>
-<div id="introSplash" class="intro-splash" aria-hidden="true"><video id="introVideo" playsinline preload="auto"></video><button id="introSkip" class="intro-skip" type="button">Salta</button><button id="introStart" class="intro-start" type="button">🔊 TOCCA PER AVVIARE CON AUDIO</button></div>
+<div id="introSplash" class="intro-splash" aria-hidden="true"><video id="introVideo" playsinline preload="auto"></video><button id="introSkip" class="intro-skip" type="button">Salta</button><button id="introStart" class="intro-start hidden" type="button">🔊 TOCCA PER AVVIARE CON AUDIO</button></div>
 <main class="app">
 <section class="brandbox"><img class="brand-img" src="./brand-smart-fighting.jpg?v=3" alt="Smart Fighting & Training" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="brand" style="display:none"><span class="smart">SMART</span><span class="fighting">FIGHTING</span></div><div class="brandline">Fighting & Training</div><div class="badge"><i></i>PWA Smart Fighting</div></section>
 <div class="kicker">Sport da combattimento e arti marziali</div>
@@ -68,43 +68,47 @@ function closeIntro(){
   },480);
 }
 async function startIntroWithAudio(){
-  if(introStarted)return;
-  introStarted=true;
   introVideo.muted=false;
   introVideo.defaultMuted=false;
   introVideo.volume=1;
-  introVideo.currentTime=0;
-  introStart.textContent='Avvio audio…';
   try{
+    if(introVideo.currentTime>0)introVideo.currentTime=0;
     await introVideo.play();
+    introStarted=true;
     introStart.classList.add('hidden');
   }catch(_){
     introStarted=false;
-    introStart.textContent='🔊 TOCCA ANCORA PER AUDIO';
-    introVideo.controls=true;
+    introStart.classList.remove('hidden');
   }
 }
 async function maybePlayIntro(){
   if(!standalone||sessionStorage.getItem('sfIntroPlayed')==='1')return;
-  sessionStorage.setItem('sfIntroPlayed','1');
   try{
     const r=await fetch('./intro-smart-fighting.mp4',{method:'HEAD',cache:'no-store'});
     if(!r.ok)return;
-    introVideo.src='./intro-smart-fighting.mp4?v=3';
+    introVideo.src='./intro-smart-fighting.mp4?v=4';
     introVideo.muted=false;
     introVideo.defaultMuted=false;
     introVideo.volume=1;
+    introVideo.autoplay=true;
     introVideo.load();
     introSplash.classList.add('show');
     introSplash.setAttribute('aria-hidden','false');
-    introVideo.addEventListener('ended',closeIntro,{once:true});
+    introVideo.addEventListener('ended',()=>{sessionStorage.setItem('sfIntroPlayed','1');closeIntro()},{once:true});
     introVideo.addEventListener('error',closeIntro,{once:true});
-    introSkip.addEventListener('click',e=>{e.stopPropagation();closeIntro()},{once:true});
+    introSkip.addEventListener('click',e=>{e.stopPropagation();sessionStorage.setItem('sfIntroPlayed','1');closeIntro()},{once:true});
     introStart.addEventListener('click',e=>{e.stopPropagation();startIntroWithAudio()});
-    introSplash.addEventListener('click',()=>startIntroWithAudio());
+    try{
+      await introVideo.play();
+      introStarted=true;
+      introStart.classList.add('hidden');
+    }catch(_){
+      introStarted=false;
+      introStart.classList.remove('hidden');
+    }
   }catch(_){}
 }
 maybePlayIntro();
 async function checkContent(){try{const[h,p,m]=await Promise.all([fetch('./enciclopedia.html',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia.pdf',{method:'HEAD',cache:'no-store'}),fetch('./enciclopedia-mobile.pdf',{method:'HEAD',cache:'no-store'})]);if(!h.ok||!p.ok||!m.ok)notice.style.display='block'}catch(_){notice.style.display='block'}}checkContent();
-if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=12').catch(()=>{}));
+if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js?v=13').catch(()=>{}));
 </script></body></html>
